@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Github } from 'lucide-react';
+import { Github, Linkedin } from 'lucide-react';
 import './Hero.css';
 
 export function Hero() {
@@ -10,7 +10,7 @@ export function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
   const toRotate = [
-    "BTech CSE Student",
+    "BE CSE Student",
     "Backend Developer",
     "IoT Enthusiast",
     "Problem Solver"
@@ -77,15 +77,26 @@ export function Hero() {
             <span className="typing-text">{typedText}</span>
             <span className="cursor">|</span>
           </div>
-          <a 
-            href="https://github.com/Arjunuk1" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="github-link"
-          >
-            <Github size={24} />
-            <span>View GitHub Profile</span>
-          </a>
+          <div className="social-links">
+            <a 
+              href="https://github.com/Arjunuk1" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="github-link"
+            >
+              <Github size={24} />
+              <span>View GitHub Profile</span>
+            </a>
+            <a 
+              href="https://linkedin.com/in/arjunsharma-cse" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="github-link linkedin-link"
+            >
+              <Linkedin size={24} />
+              <span>View LinkedIn Profile</span>
+            </a>
+          </div>
         </div>
       </div>
       <div className="gradient-blobs">

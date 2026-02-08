@@ -38,8 +38,8 @@ export function Contact() {
     {
       icon: <Mail size={28} />,
       title: 'Email',
-      value: 'Contact via GitHub',
-      link: 'https://github.com/Arjunuk1',
+      value: 'arjun251898@gmail.com',
+      link: 'mailto:arjun251898@gmail.com',
       color: '#f093fb'
     },
     {

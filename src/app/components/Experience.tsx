@@ -52,9 +52,9 @@ export function Experience() {
     },
     {
       year: '2024 - Present',
-      title: 'BTech in Computer Science',
+      title: 'BE in Computer Science',
       icon: <GraduationCap size={24} />,
-      description: 'Pursuing Bachelor of Technology in Computer Science and Engineering, building strong fundamentals.',
+      description: 'Pursuing Bachelor of Engineering in Computer Science and Engineering, building strong fundamentals.',
       achievements: [
         'Core CS fundamentals',
         'Software Engineering principles',

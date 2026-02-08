@@ -71,6 +71,13 @@
   font-weight: 300;
 }
 
+.social-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
 .github-link {
   display: inline-flex;
   align-items: center;
@@ -119,6 +126,16 @@
 .github-link span {
   position: relative;
   z-index: 1;
+}
+
+.linkedin-link::before {
+  background: rgba(10, 102, 194, 0.3);
+}
+
+.linkedin-link:hover {
+  background: rgba(10, 102, 194, 0.2);
+  border-color: rgba(10, 102, 194, 0.5);
+  box-shadow: 0 10px 40px rgba(10, 102, 194, 0.4);
 }
 
 .gradient-blobs {
@@ -187,9 +204,18 @@
     font-size: 1.2rem;
   }
   
+  .social-links {
+    gap: 1rem;
+    width: 100%;
+    padding: 0 1rem;
+  }
+  
   .github-link {
     font-size: 1rem;
     padding: 1rem 1.8rem;
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
   }
   
   .blob {

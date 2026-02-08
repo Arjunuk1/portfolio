@@ -38,7 +38,7 @@ export function About() {
           <div className="card-glow"></div>
           <div className="about-content">
             <p className="about-text">
-              A BTech student passionate about backend development, IoT projects, 
+              A BE student passionate about backend development, IoT projects, 
               and building real-world tech solutions. I love exploring new technologies 
               and turning ideas into functional applications that solve real problems.
             </p>
