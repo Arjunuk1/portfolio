@@ -25,6 +25,14 @@ interface ProjectData {
   stars: number;
 }
 
+interface CachedData {
+  projects: ProjectData[];
+  timestamp: number;
+}
+
+const CACHE_KEY = 'github_projects_cache';
+const CACHE_DURATION = 60 * 60 * 1000; // 1 hour in milliseconds
+
 export function Projects() {
   const [isVisible, setIsVisible] = useState(false);
   const [projects, setProjects] = useState<ProjectData[]>([]);
@@ -42,6 +50,45 @@ export function Projects() {
     "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
     "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"
   ];
+
+  // Check if we have valid cached data
+  const checkCache = (): ProjectData[] | null => {
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (!cached) return null;
+
+      const data: CachedData = JSON.parse(cached);
+      const now = Date.now();
+
+      // Check if cache is still valid (within 1 hour)
+      if (now - data.timestamp < CACHE_DURATION) {
+        console.log('Using cached GitHub projects data');
+        return data.projects;
+      }
+
+      // Cache expired, remove it
+      localStorage.removeItem(CACHE_KEY);
+      return null;
+    } catch (error) {
+      console.error('Error reading cache:', error);
+      localStorage.removeItem(CACHE_KEY);
+      return null;
+    }
+  };
+
+  // Save projects data to cache
+  const saveToCache = (projects: ProjectData[]) => {
+    try {
+      const data: CachedData = {
+        projects,
+        timestamp: Date.now()
+      };
+      localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+      console.log('Cached GitHub projects data');
+    } catch (error) {
+      console.error('Error saving to cache:', error);
+    }
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -65,6 +112,15 @@ export function Projects() {
   }, []);
 
   useEffect(() => {
+    // Check cache first
+    const cachedProjects = checkCache();
+    if (cachedProjects && cachedProjects.length > 0) {
+      setProjects(cachedProjects);
+      setLoading(false);
+      return;
+    }
+
+    // No valid cache, fetch from API
     fetchGitHubProjects();
   }, []);
 
@@ -73,17 +129,47 @@ export function Projects() {
       setLoading(true);
       setError(null);
       
+      // Get GitHub token from environment variable (if available)
+      const githubToken = import.meta.env.VITE_GITHUB_TOKEN;
+      
+      const headers: HeadersInit = {
+        'Accept': 'application/vnd.github.v3+json',
+      };
+
+      // Add authentication if token is available
+      if (githubToken) {
+        headers['Authorization'] = `token ${githubToken}`;
+        console.log('Using authenticated GitHub API requests');
+      } else {
+        console.warn('No GitHub token found. Using unauthenticated requests (60/hour limit). Add VITE_GITHUB_TOKEN to .env for 5000/hour limit.');
+      }
+      
       const response = await fetch('https://api.github.com/users/Arjunuk1/repos?per_page=100&sort=updated', {
-        headers: {
-          'Accept': 'application/vnd.github.v3+json',
-        },
+        headers,
       });
       
       if (!response.ok) {
         if (response.status === 403) {
-          throw new Error('GitHub API rate limit reached. Please wait an hour and try again.');
+          // Check rate limit headers
+          const remaining = response.headers.get('X-RateLimit-Remaining');
+          const reset = response.headers.get('X-RateLimit-Reset');
+          
+          if (remaining === '0' && reset) {
+            const resetDate = new Date(parseInt(reset) * 1000);
+            const now = new Date();
+            const minutesUntilReset = Math.ceil((resetDate.getTime() - now.getTime()) / 60000);
+            
+            throw new Error(
+              `GitHub API rate limit exceeded. ${githubToken ? 'Authenticated' : 'Unauthenticated'} limit reached. ` +
+              `Resets in ${minutesUntilReset} minute${minutesUntilReset !== 1 ? 's' : ''}. ` +
+              `${!githubToken ? 'Add a GitHub token to .env for higher limits (5000/hour vs 60/hour).' : ''}`
+            );
+          }
+          throw new Error('GitHub API rate limit reached. Please wait and try again.');
         } else if (response.status === 404) {
           throw new Error('GitHub user not found. Please check the username.');
+        } else if (response.status === 401) {
+          throw new Error('GitHub token is invalid. Please check your VITE_GITHUB_TOKEN in .env file.');
         } else {
           throw new Error(`Failed to fetch repositories (Status: ${response.status})`);
         }
@@ -110,9 +196,7 @@ export function Projects() {
           // Try to get languages from the languages API
           try {
             const langResponse = await fetch(repo.languages_url, {
-              headers: {
-                'Accept': 'application/vnd.github.v3+json',
-              },
+              headers,
             });
             if (langResponse.ok) {
               const languages = await langResponse.json();
@@ -156,6 +240,7 @@ export function Projects() {
       );
 
       setProjects(projectsWithLanguages);
+      saveToCache(projectsWithLanguages); // Cache the results
       setLoading(false);
     } catch (err) {
       console.error('Error fetching GitHub projects:', err);
