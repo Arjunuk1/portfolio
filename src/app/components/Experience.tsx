@@ -51,7 +51,7 @@ export function Experience() {
       ]
     },
     {
-      year: '2024 - Present',
+      year: '2025',
       title: 'BE in Computer Science',
       icon: <GraduationCap size={24} />,
       description: 'Pursuing Bachelor of Engineering in Computer Science and Engineering, building strong fundamentals.',
