@@ -1,4 +1,4 @@
-# 🚀 Arjun Sharma - Developer Portfolio
+# 🚀 Arjun Sharma - Software Developer Portfolio
 
 This is my personal portfolio website built to showcase my projects, technical skills, achievements, and development journey.
 
