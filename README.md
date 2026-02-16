@@ -78,11 +78,11 @@ It reflects my understanding of frontend development, project structuring, and m
 
 ## 📌 Future Improvements
 
-- Enhanced animations and UI refinements
-- ~~Backend integration for dynamic project fetching~~ ✅ Done (GitHub API with caching)
-- Performance optimization
-- SEO enhancements
-- Blog section for technical articles
+- Enhanced animations and UI refinements.
+- ~~Backend integration for dynamic project fetching~~ ✅ Done (GitHub API with caching).
+- Performance optimization.
+- SEO enhancements.
+- Blog section for technical articles.
 
 ---
 
