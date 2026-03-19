@@ -15,7 +15,7 @@ The website is fully responsive and deployed on Vercel, making it accessible acr
 - 💻 Project Showcase
 - 📱 Fully Responsive Design
 - ⚡ Fast Deployment via Vercel
-- 🎨 Modern UI with clean layout
+- 🎨 Modern and advanced UI with clean layout
 
 ---
 
