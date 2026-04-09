@@ -1,6 +1,6 @@
 # 🚀 Arjun Sharma - Software Developer Portfolio
 
-This is my personal portfolio website built to showcase my projects, technical skills, achievements, and my development journey.
+This is my personal portfolio website built to showcase my projects, technical skills, achievements, and my development journey throughout the college time.
 
 The website is fully responsive and deployed on Vercel, making it accessible across all devices.
 
