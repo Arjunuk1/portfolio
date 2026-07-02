@@ -23,7 +23,8 @@ The website is fully responsive and deployed on Vercel, making it accessible acr
 
 - HTML
 - CSS
-- JavaScript / TypeScript
+- JavaScript
+- TypeScript
 - React
 - Vite
 - Node.js (Project setup)
