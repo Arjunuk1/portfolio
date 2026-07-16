@@ -38,9 +38,7 @@ export function About() {
           <div className="card-glow"></div>
           <div className="about-content">
             <p className="about-text">
-              A BE student passionate about backend development, IoT projects, 
-              and building real-world tech solutions. I love exploring new technologies 
-              and turning ideas into functional applications that solve real problems.
+              I'm a Computer Science student passionate about backend development, Data Structures & Algorithms, and building scalable software solutions. I enjoy turning ideas into real-world applications, exploring modern technologies, and continuously improving my problem-solving skills through hands-on projects and coding challenges.
             </p>
             
             <div className="about-highlights">
