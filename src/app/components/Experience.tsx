@@ -32,11 +32,12 @@ export function Experience() {
       year: '2026 - Present',
       title: 'Data Structures & Algorithms',
       icon: <Code size={24} />,
-      description: 'Currently mastering DSA concepts using Java, solving complex problems and improving algorithmic thinking.',
+      description: 'Currently strengthening my Data Structures & Algorithms skills using Java while building real-world full-stack and AI-powered projects. I focus on writing clean, efficient code, solving challenging problems, and applying my knowledge through practical software development.',
       achievements: [
-        'Learning DSA in Java',
-        'Solving algorithmic problems',
-        'Building strong problem-solving skills'
+        'Mastering Data Structures & Algorithms in Java',
+        'Solving algorithmic and coding interview problems',
+        'Building real-world full-stack and AI-powered projects',
+        'Strengthening problem-solving and software engineering skills'
       ]
     },
     {
