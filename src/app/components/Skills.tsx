@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Code2, Server, Cpu, Globe, Terminal } from 'lucide-react';
+import { Code2, Server, Cpu, Globe, Terminal, Database } from 'lucide-react';
 import './Skills.css';
 
 export function Skills() {
@@ -29,13 +29,25 @@ export function Skills() {
 
   const skillCategories = [
     {
+      title: 'Languages',
+      icon: <Code2 size={28} />,
+      skills: [
+        { name: 'Java', level: 90 },
+        { name: 'C++', level: 82 },
+        { name: 'C', level: 78 },
+        { name: 'Python', level: 75 },
+        { name: 'JavaScript', level: 88 },
+        { name: 'TypeScript', level: 72 }
+      ]
+    },
+    {
       title: 'Frontend',
       icon: <Globe size={28} />,
       skills: [
-        { name: 'HTML/CSS', level: 90 },
-        { name: 'JavaScript', level: 85 },
-        { name: 'React', level: 80 },
-        { name: 'Tailwind CSS', level: 85 }
+        { name: 'React', level: 85 },
+        { name: 'HTML', level: 95 },
+        { name: 'CSS', level: 90 },
+        { name: 'Vite', level: 82 }
       ]
     },
     {
@@ -43,37 +55,42 @@ export function Skills() {
       icon: <Server size={28} />,
       skills: [
         { name: 'Node.js', level: 88 },
-        { name: 'Python', level: 75 },
-        { name: 'REST APIs', level: 90 }
+        { name: 'Express.js', level: 86 },
+        { name: 'Spring Boot', level: 72 },
+        { name: 'REST APIs', level: 92 },
+        { name: 'JWT Authentication', level: 84 }
       ]
     },
     {
-      title: 'IoT & Hardware',
+      title: 'Databases',
+      icon: <Database size={28} />,
+      skills: [
+        { name: 'MongoDB', level: 86 },
+        { name: 'MySQL', level: 80 }
+      ]
+    },
+    {
+      title: 'Core Computer Science',
       icon: <Cpu size={28} />,
       skills: [
-        { name: 'Arduino', level: 85 },
-        { name: 'ESP32', level: 82 },
-        { name: 'Sensors', level: 85 }
+        { name: 'DSA', level: 88 },
+        { name: 'OOP', level: 90 },
+        { name: 'DBMS', level: 82 },
+        { name: 'OS', level: 80 },
+        { name: 'CN', level: 78 },
+        { name: 'System Design', level: 72 }
       ]
     },
     {
-      title: 'DevOps & Tools',
+      title: 'Tools & Platforms',
       icon: <Terminal size={28} />,
       skills: [
-        { name: 'Git/GitHub', level: 88 },
+        { name: 'Git', level: 88 },
+        { name: 'GitHub', level: 90 },
         { name: 'Linux', level: 80 },
-        { name: 'VS Code', level: 90 },
-        { name: 'WSL', level: 85 }
-      ]
-    },
-    {
-      title: 'Languages',
-      icon: <Code2 size={28} />,
-      skills: [
-        { name: 'JavaScript', level: 88 },
-        { name: 'Java', level: 78 },
-        { name: 'Python', level: 75 },
-        { name: 'C/C++', level: 72 }
+        { name: 'VS Code', level: 95 },
+        { name: 'Postman', level: 84 },
+        { name: 'Vercel', level: 86 }
       ]
     }
   ];
