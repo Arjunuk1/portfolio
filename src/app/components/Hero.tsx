@@ -18,6 +18,7 @@ export function Hero() {
   const typingSpeed = 100;
   const deletingSpeed = 50;
   const pauseTime = 2000;
+  const resumeUrl = "/Arjun%27s%20Resume.pdf";
 
   useEffect(() => {
     const handleTyping = () => {
@@ -95,6 +96,14 @@ export function Hero() {
             >
               <Linkedin size={24} />
               <span>View LinkedIn Profile</span>
+            </a>
+            <a 
+              href={resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="github-link"
+            >
+              <span>View Arjun's Resume</span>
             </a>
           </div>
         </div>
