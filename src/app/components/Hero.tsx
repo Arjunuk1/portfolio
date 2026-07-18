@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Github, Linkedin } from 'lucide-react';
+import { FileText, Github, Linkedin } from 'lucide-react';
 import './Hero.css';
 
 export function Hero() {
@@ -103,6 +103,7 @@ export function Hero() {
               rel="noopener noreferrer"
               className="github-link"
             >
+              <FileText size={24} />
               <span>View Arjun's Resume</span>
             </a>
           </div>
