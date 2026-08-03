@@ -1,94 +1,86 @@
-# 🚀 Arjun Sharma - Software Developer Portfolio
+# Arjun Sharma — Portfolio
 
-This is my personal portfolio website built to showcase my projects, technical skills, achievements, and my development journey throughout the college time.
+Personal portfolio site built with React, TypeScript, and Vite. Every section
+pulls in real data where possible — projects and activity graph are fetched
+live from GitHub instead of being hardcoded.
 
-The website is fully responsive and deployed on Vercel, making it accessible across all devices.
-
-🌐 Live Website: https://portfolio-arjunuk1.vercel.app/
-
----
-
-## ✨ Features
-
-- 👤 About Me section
-- 🏆 Achievements & Academic Journey
-- 💻 Project Showcase
-- 📱 Fully Responsive Design
-- ⚡ Fast Deployment via Vercel
-- 🎨 Modern and advanced UI with clean layout
+🌐 Live site: https://portfolio-arjunuk1.vercel.app/
 
 ---
 
-## 🛠 Tech Stack
+## Tech stack
 
-- HTML
-- CSS
-- JavaScript
-- TypeScript
-- React
-- Vite
-- Node.js (Project setup)
-- Vercel (Deployment)
+- React 18 + TypeScript
+- Vite (build tool / dev server)
+- Plain CSS per component — no Tailwind or UI library, just custom styles
+- [lucide-react](https://lucide.dev) for icons
 
 ---
 
-## ⚙️ Setup & Configuration
+## Project structure
 
-### GitHub API Configuration (Recommended)
+```
+src/
+  main.tsx              # React entry point
+  app/
+    App.tsx              # Page layout — imports and orders every section
+    app.css              # Global styles: preloader, cursor, trace rail, layout
+    components/
+      Navbar.tsx / .css
+      Hero.tsx   / .css
+      About.tsx  / .css
+      Skills.tsx / .css
+      Credentials.tsx / .css   # Education, LeetCode, GitHub stats + graph
+      Experience.tsx  / .css   # "Learning journey" timeline
+      Projects.tsx    / .css   # Live GitHub repo fetch
+      Contact.tsx     / .css
+      Footer.tsx      / .css
+      CustomCursor.tsx         # Custom cursor (desktop only)
+      TraceRail.tsx            # Scroll-progress rail on the left edge
+  styles/
+    index.css   # imports fonts + theme, loaded once in main.tsx
+    fonts.css   # Google Fonts import
+    theme.css   # Design tokens (colors, fonts, easing) as CSS variables
+public/
+  favicon.png
+  Arjun-Sharma-Resume.pdf
+```
 
-The portfolio fetches projects from GitHub. To avoid API rate limits:
+Each section of the site is one component + one matching CSS file, named the
+same thing, sitting right next to each other — so if you want to change the
+Projects section, everything for it is in `Projects.tsx` and `Projects.css`.
 
-1. **Create a GitHub Personal Access Token:**
-   - Go to [GitHub Settings > Tokens](https://github.com/settings/tokens)
-   - Click "Generate new token (classic)"
-   - Give it a name (e.g., "Portfolio Website")
-   - No special scopes are needed for public repositories
-   - Generate and copy the token
+All the colors, fonts, and animation timing come from CSS variables defined
+once in `src/styles/theme.css` (things like `--bg`, `--signal`, `--structure`,
+`--font-display`). Change a value there and it updates across the whole site.
 
-2. **Add the token to your project:**
-   - Create a `.env` file in the project root (use `.env.example` as template)
-   - Add: `VITE_GITHUB_TOKEN=your_github_token_here`
+---
 
-3. **Benefits:**
-   - **Without token:** 60 API requests/hour (easily exceeded)
-   - **With token:** 5,000 API requests/hour
-   - **Caching:** Projects are cached for 1 hour to reduce API calls
-
-### Running Locally
+## Running locally
 
 ```bash
-# Install dependencies
 npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
+npm run dev       # starts a local dev server
+npm run build     # builds the production version into dist/
+npm run preview   # serves the production build locally, to test it
 ```
 
 ---
 
-## 🎯 Purpose
+## GitHub API rate limits (optional but recommended)
 
-This portfolio represents my growth as a developer and serves as a central platform to present my technical work, academic projects, and practical implementations.
+The Projects section and the Credentials section both fetch live data from
+GitHub. Without authentication, GitHub allows 60 requests/hour per IP, which
+can get used up quickly while testing. To raise that to 5,000/hour:
 
-It reflects my understanding of frontend development, project structuring, and modern deployment workflows.
-
----
-
-## 📌 Future Improvements
-
-- Enhanced animations and UI refinements.
-- ~~Backend integration for dynamic project fetching~~ ✅ Done (GitHub API with caching).
-- Performance optimization.
-- SEO enhancements.
-- Blog section for technical articles.
+1. Go to [GitHub Settings → Tokens](https://github.com/settings/tokens)
+2. Generate a new classic token (no special scopes needed for public data)
+3. In the project root, create a file named `.env`
+4. Add this line to it: `VITE_GITHUB_TOKEN=your_token_here`
 
 ---
 
-## 👨‍💻 Author
+## Author
 
-Arjun Sharma  
-BE CSE Student  
-Passionate about Backend Development, Problem Solving, and Building Real-World Applications.
+Arjun Sharma
+BE CSE Student, Chitkara University

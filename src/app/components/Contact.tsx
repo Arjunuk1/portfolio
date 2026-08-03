@@ -53,42 +53,40 @@ export function Contact() {
   return (
     <section id="contact" className="contact" ref={sectionRef}>
       <div className="contact-container">
-        <h2 className={`section-title ${isVisible ? 'animate-in' : ''}`}>
-          Get In Touch
-        </h2>
-        <p className={`section-subtitle ${isVisible ? 'animate-in' : ''}`}>
-          Let's build something amazing together
-        </p>
+        <div className="contact-head">
+          <span className={`section-eyebrow ${isVisible ? 'animate-in' : ''}`}>06 // Contact</span>
+          <h2 className={`section-title ${isVisible ? 'animate-in' : ''}`}>
+            <span>Let's build something</span>
+          </h2>
+          <p className={`section-subtitle ${isVisible ? 'animate-in' : ''}`}>
+            Let's build something amazing together
+          </p>
+        </div>
 
         <div className="contact-content">
           <div
-            className={`contact-info ${isVisible ? 'animate-in' : ''}`}
-            style={{ animationDelay: '0.2s' }}
+            className={`contact-info reveal ${isVisible ? 'animate-in' : ''}`}
+            style={{ transitionDelay: '0.1s' }}
           >
             <div className="info-card">
               <h3 className="info-title">Let's Connect</h3>
               <p className="info-description">
-                I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. 
+                I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
                 Feel free to reach out through any of the channels below.
               </p>
 
               <div className="contact-methods">
                 {contactLinks.map((contact, index) => (
                   <div key={index} className="contact-method">
-                    <div 
-                      className="method-icon"
-                      style={{ background: `linear-gradient(135deg, ${contact.color} 0%, ${contact.color}88 100%)` }}
-                    >
-                      {contact.icon}
-                    </div>
+                    <div className="method-icon">{contact.icon}</div>
                     <div className="method-info">
                       <h4 className="method-title">{contact.title}</h4>
                       {contact.link ? (
-                        <a 
-                          href={contact.link} 
-                          target="_blank" 
+                        <a
+                          href={contact.link}
+                          target="_blank"
                           rel="noopener noreferrer"
-                          className="method-value"
+                          className="method-value cursor-target"
                         >
                           {contact.value}
                         </a>
@@ -103,25 +101,25 @@ export function Contact() {
           </div>
 
           <div
-            className={`contact-cta ${isVisible ? 'animate-in' : ''}`}
-            style={{ animationDelay: '0.4s' }}
+            className={`contact-cta reveal ${isVisible ? 'animate-in' : ''}`}
+            style={{ transitionDelay: '0.25s' }}
           >
             <div className="cta-card">
               <div className="cta-icon">
-                <Send size={48} />
+                <Send size={32} />
               </div>
               <h3 className="cta-title">Ready to Collaborate?</h3>
               <p className="cta-description">
                 Check out my projects on GitHub and let's create something incredible together!
               </p>
               <div className="cta-buttons">
-                <a 
-                  href="https://github.com/Arjunuk1" 
-                  target="_blank" 
+                <a
+                  href="https://github.com/Arjunuk1"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="cta-button primary"
+                  className="cta-button primary cursor-target"
                 >
-                  <Github size={20} />
+                  <Github size={18} />
                   <span>View GitHub Profile</span>
                 </a>
               </div>

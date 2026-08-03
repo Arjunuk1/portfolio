@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { Github, ExternalLink, Loader2, AlertCircle } from 'lucide-react';
 import './Projects.css';
 
@@ -31,7 +31,7 @@ interface CachedData {
 }
 
 const CACHE_KEY = 'github_projects_cache';
-const CACHE_DURATION = 60 * 60 * 1000; // 1 hour in milliseconds
+const CACHE_DURATION = 60 * 60 * 1000;
 
 export function Projects() {
   const [isVisible, setIsVisible] = useState(false);
@@ -40,18 +40,8 @@ export function Projects() {
   const [error, setError] = useState<string | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
-  const gradients = [
-    "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-    "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-    "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
-    "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
-    "linear-gradient(135deg, #30cfd0 0%, #330867 100%)",
-    "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
-    "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"
-  ];
+  const gradients = ['#5FD4C0', '#FF8A4C', '#5FD4C0', '#FF8A4C', '#5FD4C0', '#FF8A4C'];
 
-  // Check if we have valid cached data
   const checkCache = (): ProjectData[] | null => {
     try {
       const cached = localStorage.getItem(CACHE_KEY);
@@ -60,13 +50,11 @@ export function Projects() {
       const data: CachedData = JSON.parse(cached);
       const now = Date.now();
 
-      // Check if cache is still valid (within 1 hour)
       if (now - data.timestamp < CACHE_DURATION) {
         console.log('Using cached GitHub projects data');
         return data.projects;
       }
 
-      // Cache expired, remove it
       localStorage.removeItem(CACHE_KEY);
       return null;
     } catch (error) {
@@ -76,7 +64,6 @@ export function Projects() {
     }
   };
 
-  // Save projects data to cache
   const saveToCache = (projects: ProjectData[]) => {
     try {
       const data: CachedData = {
@@ -112,7 +99,6 @@ export function Projects() {
   }, []);
 
   useEffect(() => {
-    // Check cache first
     const cachedProjects = checkCache();
     if (cachedProjects && cachedProjects.length > 0) {
       setProjects(cachedProjects);
@@ -120,7 +106,6 @@ export function Projects() {
       return;
     }
 
-    // No valid cache, fetch from API
     fetchGitHubProjects();
   }, []);
 
@@ -129,14 +114,12 @@ export function Projects() {
       setLoading(true);
       setError(null);
       
-      // Get GitHub token from environment variable (if available)
       const githubToken = import.meta.env.VITE_GITHUB_TOKEN;
       
       const headers: HeadersInit = {
         'Accept': 'application/vnd.github.v3+json',
       };
 
-      // Add authentication if token is available
       if (githubToken) {
         headers['Authorization'] = `token ${githubToken}`;
         console.log('Using authenticated GitHub API requests');
@@ -150,7 +133,6 @@ export function Projects() {
       
       if (!response.ok) {
         if (response.status === 403) {
-          // Check rate limit headers
           const remaining = response.headers.get('X-RateLimit-Remaining');
           const reset = response.headers.get('X-RateLimit-Reset');
           
@@ -177,23 +159,19 @@ export function Projects() {
 
       const repos: GitHubRepo[] = await response.json();
 
-      // Filter out forks and sort by updated date, take top 6
       const filteredRepos = repos
         .filter(repo => !repo.fork)
         .sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime())
         .slice(0, 6);
 
-      // If no repos found
       if (filteredRepos.length === 0) {
         throw new Error('No repositories found on your GitHub account.');
       }
 
-      // Fetch languages for each repo
       const projectsWithLanguages = await Promise.all(
         filteredRepos.map(async (repo, index) => {
           let techStack: string[] = [];
 
-          // Try to get languages from the languages API
           try {
             const langResponse = await fetch(repo.languages_url, {
               headers,
@@ -206,17 +184,14 @@ export function Projects() {
             console.warn('Failed to fetch languages for', repo.name);
           }
 
-          // Fallback to topics if no languages
           if (techStack.length === 0 && repo.topics && repo.topics.length > 0) {
             techStack = repo.topics.slice(0, 4);
           }
 
-          // If still no tech stack, use main language
           if (techStack.length === 0 && repo.language) {
             techStack = [repo.language];
           }
 
-          // Final fallback
           if (techStack.length === 0) {
             techStack = ['Code'];
           }
@@ -240,7 +215,7 @@ export function Projects() {
       );
 
       setProjects(projectsWithLanguages);
-      saveToCache(projectsWithLanguages); // Cache the results
+      saveToCache(projectsWithLanguages);
       setLoading(false);
     } catch (err) {
       console.error('Error fetching GitHub projects:', err);
@@ -252,71 +227,67 @@ export function Projects() {
   return (
     <section id="projects" className="projects" ref={sectionRef}>
       <div className="projects-container">
-        <h2 className={`section-title ${isVisible ? 'animate-in' : ''}`}>
-          Featured Projects
-        </h2>
-        <p className={`section-subtitle ${isVisible ? 'animate-in' : ''}`}>
-          Real-world applications built with modern technologies
-        </p>
-        
+        <div className="projects-head">
+          <span className={`section-eyebrow ${isVisible ? 'animate-in' : ''}`}>05 // Work</span>
+          <h2 className={`section-title ${isVisible ? 'animate-in' : ''}`}>
+            <span>Selected repositories</span>
+          </h2>
+          <p className={`section-subtitle ${isVisible ? 'animate-in' : ''}`}>
+            Pulled live from GitHub — real-world applications built with modern technologies
+          </p>
+        </div>
+
         {loading ? (
           <div className="loading-container">
-            <Loader2 className="loading-spinner" size={48} />
-            <p>Loading projects from GitHub...</p>
+            <Loader2 className="loading-spinner" size={36} />
+            <p>Fetching repositories from GitHub…</p>
           </div>
         ) : error ? (
           <div className="error-container">
-            <AlertCircle size={48} />
+            <AlertCircle size={36} />
             <p>{error}</p>
-            <button onClick={fetchGitHubProjects} className="retry-button">
+            <button onClick={fetchGitHubProjects} className="retry-button cursor-target">
               Try Again
             </button>
           </div>
         ) : (
           <div className="projects-grid">
             {projects.map((project, index) => (
-              <div 
-                key={project.id} 
-                className={`project-card ${isVisible ? 'animate-in' : ''}`}
-                style={{ animationDelay: `${index * 0.15}s` }}
+              <a
+                key={project.id}
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`project-card reveal cursor-target ${isVisible ? 'animate-in' : ''}`}
+                style={{ transitionDelay: `${index * 0.1}s`, '--accent': project.gradient } as CSSProperties}
               >
-                <div 
-                  className="project-gradient"
-                  style={{ background: project.gradient }}
-                ></div>
-                
-                <div className="project-content">
-                  <div className="project-header">
-                    <h3 className="project-title">{project.title}</h3>
-                    {project.stars > 0 && (
-                      <div className="project-stars">
-                        <span>⭐</span>
-                        <span>{project.stars}</span>
-                      </div>
-                    )}
-                  </div>
-                  <p className="project-description">{project.description}</p>
-                  
-                  {project.techStack.length > 0 && (
-                    <div className="tech-stack">
-                      {project.techStack.map((tech, i) => (
-                        <span key={i} className="tech-badge">{tech}</span>
-                      ))}
+                <div className="project-top">
+                  <span className="project-index">{String(index + 1).padStart(2, '0')}</span>
+                  {project.stars > 0 && (
+                    <div className="project-stars">
+                      <span>★</span>
+                      <span>{project.stars}</span>
                     </div>
                   )}
-                  
-                  <a 
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="project-link"
-                  >
-                    <Github size={20} />
-                    <span>View on GitHub</span>
-                    <ExternalLink size={16} />
-                  </a>
                 </div>
-              </div>
+
+                <h3 className="project-title">{project.title}</h3>
+                <p className="project-description">{project.description}</p>
+
+                {project.techStack.length > 0 && (
+                  <div className="tech-stack">
+                    {project.techStack.map((tech, i) => (
+                      <span key={i} className="tech-badge">{tech}</span>
+                    ))}
+                  </div>
+                )}
+
+                <div className="project-link">
+                  <Github size={16} />
+                  <span>View on GitHub</span>
+                  <ExternalLink size={14} className="link-arrow" />
+                </div>
+              </a>
             ))}
           </div>
         )}
