@@ -31,109 +31,70 @@ export function Skills() {
     {
       title: 'Languages',
       icon: <Code2 size={28} />,
-      skills: [
-        { name: 'Java', level: 90 },
-        { name: 'C++', level: 82 },
-        { name: 'C', level: 78 },
-        { name: 'Python', level: 75 },
-        { name: 'JavaScript', level: 88 },
-        { name: 'TypeScript', level: 72 }
-      ]
+      skills: ['Java', 'C++', 'C', 'Python', 'JavaScript', 'TypeScript']
     },
     {
       title: 'Frontend',
       icon: <Globe size={28} />,
-      skills: [
-        { name: 'React', level: 85 },
-        { name: 'HTML', level: 95 },
-        { name: 'CSS', level: 90 },
-        { name: 'Vite', level: 82 }
-      ]
+      skills: ['React', 'HTML', 'CSS', 'Vite']
     },
     {
       title: 'Backend',
       icon: <Server size={28} />,
-      skills: [
-        { name: 'Node.js', level: 88 },
-        { name: 'Express.js', level: 86 },
-        { name: 'Spring Boot', level: 72 },
-        { name: 'REST APIs', level: 92 },
-        { name: 'JWT Authentication', level: 84 }
-      ]
+      skills: ['Node.js', 'Express.js', 'Spring Boot', 'REST APIs', 'JWT Authentication']
     },
     {
       title: 'Databases',
       icon: <Database size={28} />,
-      skills: [
-        { name: 'MongoDB', level: 86 },
-        { name: 'MySQL', level: 80 }
-      ]
+      skills: ['MongoDB', 'MySQL']
     },
     {
       title: 'Core Computer Science',
       icon: <Cpu size={28} />,
-      skills: [
-        { name: 'DSA', level: 88 },
-        { name: 'OOP', level: 90 },
-        { name: 'DBMS', level: 82 },
-        { name: 'OS', level: 80 },
-        { name: 'CN', level: 78 },
-        { name: 'System Design', level: 72 }
-      ]
+      skills: ['DSA', 'OOP', 'DBMS', 'OS', 'CN', 'System Design']
     },
     {
       title: 'Tools & Platforms',
       icon: <Terminal size={28} />,
-      skills: [
-        { name: 'Git', level: 88 },
-        { name: 'GitHub', level: 90 },
-        { name: 'Linux', level: 80 },
-        { name: 'VS Code', level: 95 },
-        { name: 'Postman', level: 84 },
-        { name: 'Vercel', level: 86 }
-      ]
+      skills: ['Git', 'GitHub', 'Linux', 'VS Code', 'Postman', 'Vercel']
     }
   ];
 
   return (
     <section id="skills" className="skills" ref={sectionRef}>
       <div className="skills-container">
-        <h2 className={`section-title ${isVisible ? 'animate-in' : ''}`}>
-          Technical Skills
-        </h2>
-        <p className={`section-subtitle ${isVisible ? 'animate-in' : ''}`}>
-          Technologies and tools I work with
-        </p>
+        <div className="skills-head">
+          <span className={`section-eyebrow ${isVisible ? 'animate-in' : ''}`}>02 // Skills</span>
+          <h2 className={`section-title ${isVisible ? 'animate-in' : ''}`}>
+            <span>What I build with</span>
+          </h2>
+          <p className={`section-subtitle ${isVisible ? 'animate-in' : ''}`}>
+            Technologies and tools I work with
+          </p>
+        </div>
 
         <div className="skills-grid">
           {skillCategories.map((category, catIndex) => (
             <div
               key={catIndex}
-              className={`skill-category ${isVisible ? 'animate-in' : ''}`}
-              style={{ animationDelay: `${catIndex * 0.1}s` }}
+              className={`skill-category reveal ${isVisible ? 'animate-in' : ''}`}
+              style={{ transitionDelay: `${catIndex * 0.08}s` }}
             >
               <div className="category-header">
                 <div className="category-icon">{category.icon}</div>
                 <h3 className="category-title">{category.title}</h3>
+                <span className="category-index">0{catIndex + 1}</span>
               </div>
 
-              <div className="skills-list">
+              <div className="skills-chips">
                 {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex} className="skill-item">
-                    <div className="skill-info">
-                      <span className="skill-name">{skill.name}</span>
-                      <span className="skill-percentage">{skill.level}%</span>
-                    </div>
-                    <div className="skill-bar">
-                      <div
-                        className="skill-progress"
-                        style={{
-                          width: isVisible ? `${skill.level}%` : '0%',
-                          transitionDelay: `${(catIndex * 0.1) + (skillIndex * 0.1)}s`
-                        }}
-                      ></div>
-                    </div>
-                  </div>
+                  <span
+                    key={skillIndex}
+                    className="skill-chip"
+                    style={{ transitionDelay: `${(catIndex * 0.08) + (skillIndex * 0.04)}s` }}
+                  >
+                    {skill}
+                  </span>
                 ))}
               </div>
             </div>

@@ -4,6 +4,7 @@ import './Experience.css';
 
 export function Experience() {
   const [isVisible, setIsVisible] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -78,22 +79,29 @@ export function Experience() {
   return (
     <section id="experience" className="experience" ref={sectionRef}>
       <div className="experience-container">
-        <h2 className={`section-title ${isVisible ? 'animate-in' : ''}`}>
-          Learning Journey
-        </h2>
-        <p className={`section-subtitle ${isVisible ? 'animate-in' : ''}`}>
-          My path in technology and continuous learning
-        </p>
+        <div className="experience-head">
+          <span className={`section-eyebrow ${isVisible ? 'animate-in' : ''}`}>04 // Log</span>
+          <h2 className={`section-title ${isVisible ? 'animate-in' : ''}`}>
+            <span>Learning journey</span>
+          </h2>
+          <p className={`section-subtitle ${isVisible ? 'animate-in' : ''}`}>
+            My path in technology and continuous learning
+          </p>
+        </div>
 
         <div className="timeline">
           {timeline.map((item, index) => (
             <div
               key={index}
-              className={`timeline-item ${isVisible ? 'animate-in' : ''}`}
-              style={{ animationDelay: `${index * 0.2}s` }}
+              className={`timeline-item reveal ${isVisible ? 'animate-in' : ''} ${
+                hoveredIndex === index ? 'is-active' : ''
+              } ${hoveredIndex !== null && hoveredIndex !== index ? 'is-dimmed' : ''}`}
+              style={{ transitionDelay: `${index * 0.12}s` }}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
             >
-              <div className="timeline-icon">
-                {item.icon}
+              <div className="timeline-marker">
+                <div className="timeline-icon">{item.icon}</div>
               </div>
               <div className="timeline-content">
                 <div className="timeline-year">{item.year}</div>
