@@ -65,21 +65,6 @@ npm run build     # builds the production version into dist/
 npm run preview   # serves the production build locally, to test it
 ```
 
----
-
-## GitHub API rate limits (optional but recommended)
-
-The Projects section and the Credentials section both fetch live data from
-GitHub. Without authentication, GitHub allows 60 requests/hour per IP, which
-can get used up quickly while testing. To raise that to 5,000/hour:
-
-1. Go to [GitHub Settings → Tokens](https://github.com/settings/tokens)
-2. Generate a new classic token (no special scopes needed for public data)
-3. In the project root, create a file named `.env`
-4. Add this line to it: `VITE_GITHUB_TOKEN=your_token_here`
-
----
-
 ## Author
 
 Arjun Sharma
