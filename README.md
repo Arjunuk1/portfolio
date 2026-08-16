@@ -56,15 +56,6 @@ once in `src/styles/theme.css` (things like `--bg`, `--signal`, `--structure`,
 
 ---
 
-## Running locally
-
-```bash
-npm install
-npm run dev       # starts a local dev server
-npm run build     # builds the production version into dist/
-npm run preview   # serves the production build locally, to test it
-```
-
 ## Author
 
 Arjun Sharma
