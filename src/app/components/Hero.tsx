@@ -57,7 +57,7 @@ function useScramble(words: string[]) {
 
 export function Hero() {
   const roleText = useScramble(ROLES);
-  const resumeUrl = "/Arjun-Sharma-Resume.pdf";
+  const resumeUrl = "/Arjun-Sharma-Resume-2026.pdf";
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
