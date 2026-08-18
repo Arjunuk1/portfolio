@@ -57,8 +57,7 @@ function useScramble(words: string[]) {
 
 export function Hero() {
   const roleText = useScramble(ROLES);
-  // Prevent stale browser/PDF-viewer cache from serving an older resume file.
-  const resumeUrl = "/Arjun-Sharma-Resume.pdf?v=20260818";
+  const resumeUrl = "/Arjun-Sharma-Resume.pdf";
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
