@@ -43,7 +43,7 @@ src/
     theme.css   # Design tokens (colors, fonts, easing) as CSS variables
 public/
   favicon.png
-  Arjun-Sharma-Resume.pdf
+  Arjun-Sharma-Resume-2026.pdf
 ```
 
 Each section of the site is one component + one matching CSS file, named the
