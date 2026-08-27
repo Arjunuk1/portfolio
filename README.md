@@ -4,7 +4,7 @@ Personal portfolio site built with React, TypeScript, and Vite. Every section
 pulls in real data where possible — projects and activity graph are fetched
 live from GitHub instead of being hardcoded.
 
-🌐 Live site: https://portfolio-arjunuk1.vercel.app/
+🌐 Live portfolio: https://portfolio-arjunuk1.vercel.app/
 
 ---
 
