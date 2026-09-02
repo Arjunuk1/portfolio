@@ -10,9 +10,6 @@ interface GhStats {
   since: string;
 }
 
-const GRAPH_URL =
-  'https://github-readme-activity-graph.vercel.app/graph?username=Arjunuk1&bg_color=00000000&color=9aa2b6&line=5fd4c0&point=ff8a4c&area=true&area_color=5fd4c0&title_color=edeff4&hide_border=true&hide_title=true';
-
 export function Credentials() {
   const [isVisible, setIsVisible] = useState(false);
   const [gh, setGh] = useState<GhStats | null>(null);
@@ -25,6 +22,11 @@ export function Credentials() {
   const handleGraphFallback = useCallback(() => {
     setUseLiveGraph(false);
   }, []);
+
+  const retryGraph = () => {
+    setUseLiveGraph(true);
+    setGraphKey((key) => key + 1);
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -197,16 +199,12 @@ export function Credentials() {
             {useLiveGraph ? (
               <ActivityGraph username="Arjunuk1" replayKey={graphKey} onFallback={handleGraphFallback} />
             ) : (
-              <>
-                <img
-                  src={GRAPH_URL}
-                  alt="Arjun's GitHub contribution activity graph"
-                  className="cred-graph-img"
-                />
-                <div className="cred-graph-mask">
-                  <div key={graphKey} className="cred-graph-sweep" />
-                </div>
-              </>
+              <div className="cred-graph-unavailable" role="status">
+                <p>Contribution activity is temporarily unavailable.</p>
+                <button type="button" className="cred-link cursor-target" onClick={retryGraph}>
+                  Retry graph →
+                </button>
+              </div>
             )}
           </div>
           <a
