@@ -10,12 +10,16 @@ interface GhStats {
   since: string;
 }
 
+const GRAPH_URL =
+  'https://github-readme-activity-graph.vercel.app/graph?username=Arjunuk1&bg_color=00000000&color=9aa2b6&line=5fd4c0&point=ff8a4c&area=true&area_color=5fd4c0&title_color=edeff4&hide_border=true&hide_title=true';
+
 export function Credentials() {
   const [isVisible, setIsVisible] = useState(false);
   const [gh, setGh] = useState<GhStats | null>(null);
   const [ghError, setGhError] = useState(false);
   const [graphKey, setGraphKey] = useState(0);
   const [useLiveGraph, setUseLiveGraph] = useState(true);
+  const [fallbackGraphFailed, setFallbackGraphFailed] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const graphRef = useRef<HTMLDivElement>(null);
 
@@ -24,6 +28,7 @@ export function Credentials() {
   }, []);
 
   const retryGraph = () => {
+    setFallbackGraphFailed(false);
     setUseLiveGraph(true);
     setGraphKey((key) => key + 1);
   };
@@ -197,7 +202,19 @@ export function Credentials() {
           </div>
           <div className="cred-graph-media">
             {useLiveGraph ? (
-              <ActivityGraph username="Arjunuk1" replayKey={graphKey} onFallback={handleGraphFallback} />
+              <ActivityGraph key={graphKey} username="Arjunuk1" replayKey={graphKey} onFallback={handleGraphFallback} />
+            ) : !fallbackGraphFailed ? (
+              <>
+                <img
+                  src={`${GRAPH_URL}&cache=${graphKey}`}
+                  alt="Arjun's GitHub contribution activity graph"
+                  className="cred-graph-img"
+                  onError={() => setFallbackGraphFailed(true)}
+                />
+                <div className="cred-graph-mask" aria-hidden="true">
+                  <div key={graphKey} className="cred-graph-sweep" />
+                </div>
+              </>
             ) : (
               <div className="cred-graph-unavailable" role="status">
                 <p>Contribution activity is temporarily unavailable.</p>
