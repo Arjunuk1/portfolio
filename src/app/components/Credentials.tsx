@@ -11,7 +11,7 @@ interface GhStats {
 }
 
 const GRAPH_URL =
-  'https://github-readme-activity-graph.vercel.app/graph?username=Arjunuk1&bg_color=00000000&color=9aa2b6&line=5fd4c0&point=ff8a4c&area=true&area_color=5fd4c0&title_color=edeff4&hide_border=true&hide_title=true';
+  'https://ghchart.rshah.org/5fd4c0/Arjunuk1';
 
 export function Credentials() {
   const [isVisible, setIsVisible] = useState(false);
