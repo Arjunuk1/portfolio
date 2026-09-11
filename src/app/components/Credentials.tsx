@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { GraduationCap, Trophy, Github as GithubIcon } from 'lucide-react';
-import { ActivityGraph } from './ActivityGraph';
 import './Credentials.css';
 
 interface GhStats {
@@ -18,18 +17,13 @@ export function Credentials() {
   const [gh, setGh] = useState<GhStats | null>(null);
   const [ghError, setGhError] = useState(false);
   const [graphKey, setGraphKey] = useState(0);
-  const [useLiveGraph, setUseLiveGraph] = useState(true);
   const [fallbackGraphFailed, setFallbackGraphFailed] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const graphRef = useRef<HTMLDivElement>(null);
-
-  const handleGraphFallback = useCallback(() => {
-    setUseLiveGraph(false);
-  }, []);
+  const graphCacheKey = `${new Date().toISOString().slice(0, 10)}-${graphKey}`;
 
   const retryGraph = () => {
     setFallbackGraphFailed(false);
-    setUseLiveGraph(true);
     setGraphKey((key) => key + 1);
   };
 
@@ -201,12 +195,10 @@ export function Credentials() {
             <span className="cred-live" />
           </div>
           <div className="cred-graph-media">
-            {useLiveGraph ? (
-              <ActivityGraph key={graphKey} username="Arjunuk1" replayKey={graphKey} onFallback={handleGraphFallback} />
-            ) : !fallbackGraphFailed ? (
+            {!fallbackGraphFailed ? (
               <>
                 <img
-                  src={`${GRAPH_URL}?cache=${graphKey}`}
+                  src={`${GRAPH_URL}?cache=${graphCacheKey}`}
                   alt="Arjun's GitHub contribution activity graph"
                   className="cred-graph-img"
                   onError={() => setFallbackGraphFailed(true)}
