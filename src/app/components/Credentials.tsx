@@ -206,7 +206,7 @@ export function Credentials() {
             ) : !fallbackGraphFailed ? (
               <>
                 <img
-                  src={`${GRAPH_URL}&cache=${graphKey}`}
+                  src={`${GRAPH_URL}?cache=${graphKey}`}
                   alt="Arjun's GitHub contribution activity graph"
                   className="cred-graph-img"
                   onError={() => setFallbackGraphFailed(true)}
