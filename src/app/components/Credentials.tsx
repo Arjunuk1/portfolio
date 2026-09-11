@@ -128,7 +128,7 @@ export function Credentials() {
             </div>
             <div className="cred-row">
               <span className="cred-label">SOLVED</span>
-              <span className="cred-value">140+ problems</span>
+              <span className="cred-value">170+ problems</span>
             </div>
             <div className="cred-row">
               <span className="cred-label">STREAK</span>
@@ -136,7 +136,7 @@ export function Credentials() {
             </div>
             <div className="cred-row">
               <span className="cred-label">FOCUS</span>
-              <span className="cred-value">Arrays, Strings, DP</span>
+              <span className="cred-value">LinkedList, Strings, DP</span>
             </div>
             <a
               href="https://leetcode.com/u/Arjuncoder01/"
