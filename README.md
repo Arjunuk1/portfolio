@@ -1,8 +1,9 @@
 # Arjun Sharma — Portfolio
 
 Personal portfolio site built with React, TypeScript, and Vite. Every section
-pulls in real data where possible — projects and activity graph are fetched
-live from GitHub instead of being hardcoded.
+pulls in real data where possible — projects and GitHub profile stats are
+fetched live, while the contribution calendar is served from a public GitHub
+graph endpoint and refreshed daily.
 
 🌐 Live portfolio: https://portfolio-arjunuk1.vercel.app/
 
@@ -30,7 +31,7 @@ src/
       Hero.tsx   / .css
       About.tsx  / .css
       Skills.tsx / .css
-      Credentials.tsx / .css   # Education, LeetCode, GitHub stats + graph
+      Credentials.tsx / .css   # Education, LeetCode, GitHub stats + calendar
       Experience.tsx  / .css   # "Learning journey" timeline
       Projects.tsx    / .css   # Live GitHub repo fetch
       Contact.tsx     / .css
