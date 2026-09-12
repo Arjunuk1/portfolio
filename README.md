@@ -48,8 +48,7 @@ public/
 ```
 
 Each section of the site is one component + one matching CSS file, named the
-same thing, sitting right next to each other — so if you want to change the
-Projects section, everything for it is in `Projects.tsx` and `Projects.css`.
+same thing, sitting right next to each other
 
 All the colors, fonts, and animation timing come from CSS variables defined
 once in `src/styles/theme.css` (things like `--bg`, `--signal`, `--structure`,
